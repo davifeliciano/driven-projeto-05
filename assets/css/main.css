@@ -1,0 +1,15 @@
+:root {
+    --background-color: #e5e5e5;
+    --status-message-color: #dcdcdc;
+    --public-message-color: white;
+    --private-message-color: #ffdede;
+    --header-height: 8rem;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
