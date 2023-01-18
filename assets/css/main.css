@@ -1,9 +1,11 @@
 :root {
+    --theme-color: #ff0024;
     --background-color: #e5e5e5;
     --status-message-color: #dcdcdc;
     --public-message-color: white;
     --private-message-color: #ffdede;
     --header-height: 8rem;
+    --header-shadow-color: rgba(0, 0, 0, 0.05);
 }
 
 html {
@@ -12,4 +14,69 @@ html {
 
 body {
     font-family: 'Roboto', sans-serif;
+}
+
+#main-screen {
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+header,
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--header-height);
+    padding: 1rem 2rem;
+    background-color: white;
+    filter: drop-shadow(0 4px 6px var(--header-shadow-color));
+}
+
+.logo-container {
+    height: 100%;
+}
+
+.logo-container img {
+    width: auto;
+    height: 100%;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+:is(header, footer) :is(button, input) {
+    padding: 0;
+    border: none;
+    background: none;
+    line-height: 0;
+}
+
+:is(header, footer) button:hover {
+    cursor: pointer;
+}
+
+:is(header, footer) ion-icon {
+    font-size: 4rem;
+}
+
+footer {
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+#message {
+    width: 100%;
+    margin-right: 1rem;
+    font-size: 1.8rem;
+    background: none;
+}
+
+#message:focus {
+    outline: none;
+}
+
+#message::selection {
+    color: white;
+    background-color: var(--theme-color);
 }
