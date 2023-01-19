@@ -31,7 +31,7 @@
     <title>Bate Papo UOL</title>
   </head>
   <body>
-    <div id="main-screen" class="screen chat-menu-open">
+    <div id="main-screen" class="screen">
       <header>
         <div class="logo-container">
           <img src="assets/images/logo.webp"
@@ -43,6 +43,33 @@
           <ion-icon name="people"></ion-icon>
         </button>
       </header>
+      <main class="message-section">
+        <div class="message status">
+          <span class="timestamp">(09:21:45)</span>
+          <span><span class="username">João</span>:</span>
+          <span>entrou na sala</span>
+        </div>
+        <div class="message public">
+          <span class="timestamp">(09:22:28)</span>
+          <span><span class="username">João</span> para <span class="username">Todos</span>:</span>
+          <span>Bom dia</span>
+        </div>
+        <div class="message public">
+          <span class="timestamp">(09:22:38)</span>
+          <span><span class="username">Maria</span> para <span class="username">João</span>:</span>
+          <span>Oi João 😄</span>
+        </div>
+        <div class="message private">
+          <span class="timestamp">(09:22:45)</span>
+          <span><span class="username">João</span> para <span class="username">Maria</span>:</span>
+          <span>Oi gatinha, quer tc?</span>
+        </div>
+        <div class="message status">
+          <span class="timestamp">(09:23:45)</span>
+          <span><span class="username">Maria</span>:</span>
+          <span>saiu da sala</span>
+        </div>
+      </main>
       <footer>
         <input type="text" name="message" id="message" placeholder="Escreva aqui...">
         <button class="send-btn">
@@ -85,7 +112,9 @@
                name="username"
                id="username"
                placeholder="Digite seu nome">
-        <button class="username-btn">Entrar</button>
+        <button class="username-btn">
+          Entrar
+        </button>
       </div>
     </div>
   </body>

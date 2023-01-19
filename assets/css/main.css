@@ -4,6 +4,7 @@
     --status-message-color: #dcdcdc;
     --public-message-color: white;
     --private-message-color: #ffdede;
+    --timestamp-color: #aaaaaa;
     --checkmark-color: #28bb25;
     --user-input-color: #e7e7e7;
     --user-input-border-color: #d7d7d7;
@@ -31,13 +32,15 @@ body {
 }
 
 #main-screen {
+    display: grid;
+    grid-template-rows: var(--header-height) 1fr var(--header-height);
     background-color: var(--background-color);
-    transition: all 500ms ease-in-out;
+    transition: filter 500ms ease-in-out;
 }
 
 #main-screen.chat-menu-open {
     filter: brightness(40%);
-    transition: all 500ms ease-in-out;
+    transition: filter 500ms ease-in-out;
 }
 
 header,
@@ -89,6 +92,47 @@ footer {
 
 #message:focus {
     outline: none;
+}
+
+.message-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: scroll;
+}
+
+.message-section .message {
+    min-height: 4rem;
+    padding: 1rem;
+    font-size: 1.4rem;
+}
+
+.message-section .message:first-child {
+    margin-top: 2.6rem;
+}
+
+.message-section .message:last-child {
+    margin-bottom: 2.6rem;
+}
+
+.message-section .message.status {
+    background-color: var(--status-message-color);
+}
+
+.message-section .message.public {
+    background-color: var(--public-message-color);
+}
+
+.message-section .message.private {
+    background-color: var(--private-message-color);
+}
+
+.message .timestamp {
+    color: var(--timestamp-color);
+}
+
+.message .username {
+    font-weight: 700;
 }
 
 .chat-menu {
