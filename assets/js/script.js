@@ -5,13 +5,15 @@ axios.defaults.baseURL = "https://mock-api.driven.com.br/api/v6/uol";
 
 // Main elements
 const loginScreen = document.querySelector("#login-screen");
+const usernameInput = document.querySelector("#username");
 const loginMessage = document.querySelector("#login-msg");
 const messageSection = document.querySelector(".message-section");
+const messageInput = document.querySelector("#message");
 
 // Enum with visibility options
 const visibility = Object.freeze({
-  public: 0,
-  private: 1,
+  public: "message",
+  private: "private_message",
 });
 
 /* Chat object stores the username, the selected recipient of the
@@ -99,6 +101,24 @@ function updateMessages() {
     .catch(logError);
 }
 
+function sendMessage() {
+  // Send the message in messageInput to the API
+  const msg = messageInput.value.trim();
+  if (msg === "") return null;
+  messageInput.value = "";
+  messageInput.focus();
+
+  return axios
+    .post("messages", {
+      from: chat.username,
+      to: chat.sendTo,
+      text: msg,
+      type: chat.visibility,
+    })
+    .then(updateMessages)
+    .catch(window.location.reload);
+}
+
 function sendStatus() {
   /* Send the status to the API. If an error is thrown,
      refresh the page so that the user can login again */
@@ -113,7 +133,6 @@ function showLoginMessage(msg) {
 }
 
 function login() {
-  const usernameInput = document.querySelector("#username");
   const name = usernameInput.value.trim();
 
   if (name === "") {
@@ -121,6 +140,7 @@ function login() {
     return null;
   }
 
+  messageInput.focus();
   return axios
     .post("participants", { name })
     .then((reponse) => {
@@ -136,3 +156,18 @@ function login() {
       }
     });
 }
+
+window.onload = () => {
+  usernameInput.focus();
+  usernameInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      login();
+    }
+  });
+
+  messageInput.addEventListener("keyup", (event) => {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  });
+};

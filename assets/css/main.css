@@ -239,6 +239,7 @@ footer {
     display: block;
     font-size: 1.4rem;
     color: var(--theme-color);
+    text-align: center;
 }
 
 .login-btn {
