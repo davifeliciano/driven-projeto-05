@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <script defer type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script defer nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <script defer src="assets/js/script.js"></script>
     <title>Bate Papo UOL</title>
   </head>
@@ -44,31 +45,6 @@
         </button>
       </header>
       <main class="message-section">
-        <div class="message status">
-          <span class="timestamp">(09:21:45)</span>
-          <span><span class="username">João</span>:</span>
-          <span>entrou na sala</span>
-        </div>
-        <div class="message public">
-          <span class="timestamp">(09:22:28)</span>
-          <span><span class="username">João</span> para <span class="username">Todos</span>:</span>
-          <span>Bom dia</span>
-        </div>
-        <div class="message public">
-          <span class="timestamp">(09:22:38)</span>
-          <span><span class="username">Maria</span> para <span class="username">João</span>:</span>
-          <span>Oi João 😄</span>
-        </div>
-        <div class="message private">
-          <span class="timestamp">(09:22:45)</span>
-          <span><span class="username">João</span> para <span class="username">Maria</span>:</span>
-          <span>Oi gatinha, quer tc?</span>
-        </div>
-        <div class="message status">
-          <span class="timestamp">(09:23:45)</span>
-          <span><span class="username">Maria</span>:</span>
-          <span>saiu da sala</span>
-        </div>
       </main>
       <footer>
         <input type="text" name="message" id="message" placeholder="Escreva aqui...">
@@ -100,21 +76,22 @@
         </div>
       </div>
     </div>
-    <div id="username-screen" class="screen hidden">
+    <div id="login-screen" class="screen">
       <div class="logo-container">
         <img src="assets/images/logo.webp"
              alt="Logo do Bate Papo UOL"
              width="450"
              height="324">
       </div>
-      <div class="username-container">
+      <div class="login-msg-container">
+        <span id="login-msg" class="hidden"></span>
+      </div>
+      <div class="login-container">
         <input type="text"
                name="username"
                id="username"
                placeholder="Digite seu nome">
-        <button class="username-btn">
-          Entrar
-        </button>
+        <button class="login-btn" onclick="login();">Entrar</button>
       </div>
     </div>
   </body>

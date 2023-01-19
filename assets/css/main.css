@@ -99,10 +99,10 @@ footer {
     flex-direction: column;
     gap: 4px;
     overflow-y: scroll;
+    scroll-behavior: smooth;
 }
 
 .message-section .message {
-    min-height: 4rem;
     padding: 1rem;
     font-size: 1.4rem;
 }
@@ -191,14 +191,14 @@ footer {
     display: block;
 }
 
-#username-screen {
+#login-screen {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-#username-screen .logo-container {
+#login-screen .logo-container {
     height: 9.2rem;
     position: fixed;
     top: 50%;
@@ -206,7 +206,7 @@ footer {
     transform: translate(-50%, -200%);
 }
 
-.username-container {
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -228,7 +228,20 @@ footer {
     outline: none;
 }
 
-.username-btn {
+.login-msg-container {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+}
+
+#login-msg {
+    display: block;
+    font-size: 1.4rem;
+    color: var(--theme-color);
+}
+
+.login-btn {
     height: 4.5rem;
     width: 10rem;
     border: none;
@@ -246,6 +259,6 @@ button:hover {
     cursor: pointer;
 }
 
-#username-screen.hidden {
+:is(#login-screen, #login-msg).hidden {
     display: none;
 }
