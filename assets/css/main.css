@@ -4,6 +4,10 @@
     --status-message-color: #dcdcdc;
     --public-message-color: white;
     --private-message-color: #ffdede;
+    --user-input-color: #e7e7e7;
+    --user-input-border-color: #d7d7d7;
+    --user-btn-color: #696969;
+    --user-btn-bg-color: #e7e7e7;
     --header-height: 8rem;
     --header-shadow-color: rgba(0, 0, 0, 0.05);
 }
@@ -16,8 +20,16 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-#main-screen {
+.screen {
     height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: white;
+}
+
+#main-screen {
     background-color: var(--background-color);
 }
 
@@ -32,7 +44,7 @@ footer {
     filter: drop-shadow(0 4px 6px var(--header-shadow-color));
 }
 
-.logo-container {
+header .logo-container {
     height: 100%;
 }
 
@@ -48,10 +60,6 @@ footer {
     border: none;
     background: none;
     line-height: 0;
-}
-
-:is(header, footer) button:hover {
-    cursor: pointer;
 }
 
 :is(header, footer) ion-icon {
@@ -76,7 +84,57 @@ footer {
     outline: none;
 }
 
-#message::selection {
+#username-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#username-screen .logo-container {
+    height: 9.2rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -200%);
+}
+
+.username-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 1.8rem;
+}
+
+#username {
+    height: 5.4rem;
+    width: min(70vw, 26rem);
+    border: 1px solid var(--user-input-border-color);
+    border-radius: 4px;
+    color: var(--username-input-color);
+    text-align: center;
+}
+
+#username:focus {
+    outline: none;
+}
+
+.username-btn {
+    height: 4.5rem;
+    width: 10rem;
+    border: none;
+    border-radius: 9px;
+    background-color: var(--user-btn-bg-color);
+    color: var(--user-btn-color);
+}
+
+:is(#message, #username)::selection {
     color: white;
     background-color: var(--theme-color);
+}
+
+button:hover {
+    cursor: pointer;
 }
