@@ -38,11 +38,6 @@ body {
     transition: filter 500ms ease-in-out;
 }
 
-#main-screen.chat-menu-open {
-    filter: brightness(40%);
-    transition: filter 500ms ease-in-out;
-}
-
 header,
 footer {
     display: flex;
@@ -135,6 +130,24 @@ footer {
     font-weight: 700;
 }
 
+.chat-menu-overlay {
+    pointer-events: none;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 500ms ease-in-out;
+}
+
+.chat-menu-overlay.chat-menu-open {
+    pointer-events: initial;
+    opacity: 0.6;
+    transition: all 500ms ease-in-out;
+}
+
+.chat-menu-overlay.chat-menu-open+.chat-menu {
+    transform: translateX(-100%);
+    transition: transform 500ms ease-in-out;
+}
+
 .chat-menu {
     display: flex;
     flex-direction: column;
@@ -145,11 +158,6 @@ footer {
     position: fixed;
     left: 100%;
     top: 0%;
-    transition: transform 500ms ease-in-out;
-}
-
-#main-screen.chat-menu-open+.chat-menu {
-    transform: translateX(-100%);
     transition: transform 500ms ease-in-out;
 }
 

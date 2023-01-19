@@ -40,7 +40,7 @@
                width="450"
                height="324">
         </div>
-        <button class="chat-config-btn">
+        <button class="chat-config-btn" onclick="showChatMenu();">
           <ion-icon name="people"></ion-icon>
         </button>
       </header>
@@ -53,6 +53,7 @@
         </button>
       </footer>
     </div>
+    <div class="screen chat-menu-overlay" onclick="hideChatMenu();"></div>
     <div class="chat-menu">
       <div id="contacts" class="menu-section">
         <span class="section-title">Escolha um contato para enviar mensagem:</span>

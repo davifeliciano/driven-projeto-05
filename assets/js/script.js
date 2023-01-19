@@ -9,6 +9,8 @@ const usernameInput = document.querySelector("#username");
 const loginMessage = document.querySelector("#login-msg");
 const messageSection = document.querySelector(".message-section");
 const messageInput = document.querySelector("#message");
+const chatMenuBtn = document.querySelector(".chat-config-btn");
+const chatMenuOverlay = document.querySelector(".chat-menu-overlay");
 
 // Enum with visibility options
 const visibility = Object.freeze({
@@ -130,6 +132,14 @@ function sendStatus() {
 function showLoginMessage(msg) {
   loginMessage.classList.remove("hidden");
   loginMessage.innerText = msg;
+}
+
+function showChatMenu() {
+  chatMenuOverlay.classList.add("chat-menu-open");
+}
+
+function hideChatMenu() {
+  chatMenuOverlay.classList.remove("chat-menu-open");
 }
 
 function login() {
