@@ -31,7 +31,7 @@
     <title>Bate Papo UOL</title>
   </head>
   <body>
-    <div id="main-screen" class="screen">
+    <div id="main-screen" class="screen chat-menu-open">
       <header>
         <div class="logo-container">
           <img src="assets/images/logo.webp"
@@ -50,7 +50,30 @@
         </button>
       </footer>
     </div>
-    <div id="username-screen" class="screen">
+    <div class="chat-menu">
+      <div id="contacts" class="menu-section">
+        <span class="section-title">Escolha um contato para enviar mensagem:</span>
+        <div class="menu-entry selected">
+          <ion-icon name="people"></ion-icon>
+          <span>Todos</span>
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </div>
+      <div class="menu-section">
+        <span class="section-title">Escolha a visibilidade:</span>
+        <div class="menu-entry selected">
+          <ion-icon name="lock-open"></ion-icon>
+          <span>Público</span>
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+        <div class="menu-entry">
+          <ion-icon name="lock-closed"></ion-icon>
+          <span>Reservadamente</span>
+          <ion-icon name="checkmark"></ion-icon>
+        </div>
+      </div>
+    </div>
+    <div id="username-screen" class="screen hidden">
       <div class="logo-container">
         <img src="assets/images/logo.webp"
              alt="Logo do Bate Papo UOL"
