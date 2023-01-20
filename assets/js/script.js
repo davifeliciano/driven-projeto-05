@@ -13,6 +13,7 @@ const chatMenuBtn = document.querySelector(".chat-config-btn");
 const chatMenuOverlay = document.querySelector(".chat-menu-overlay");
 const contactSection = document.querySelector("#contacts");
 const allContactsEntry = contactSection.querySelector("#all-contacts");
+const visibilitySection = document.querySelector("#visibility");
 
 // Enum with visibility options
 const visibility = Object.freeze({
@@ -64,7 +65,7 @@ function addMessageOnScreen(msg) {
                              para <span class="username">${msg.to}</span>:`;
       break;
 
-    case "private-message":
+    case "private_message":
       messageContainer.classList.add("private");
       senderRecipientSpan = `<span class="username">${msg.from}</span> em privado
                              para <span class="username">${msg.to}</span>:`;
@@ -197,14 +198,6 @@ function showLoginMessage(msg) {
   loginMessage.innerText = msg;
 }
 
-function showChatMenu() {
-  chatMenuOverlay.classList.add("chat-menu-open");
-}
-
-function hideChatMenu() {
-  chatMenuOverlay.classList.remove("chat-menu-open");
-}
-
 function login() {
   const name = usernameInput.value.trim();
 
@@ -228,12 +221,36 @@ function login() {
     .catch((error) => {
       if (error.response.status === 400) {
         showLoginMessage("Já existe um usuário com esse nome");
+        usernameInput.focus();
       }
     });
 }
 
+function showChatMenu() {
+  chatMenuOverlay.classList.add("chat-menu-open");
+}
+
+function hideChatMenu() {
+  chatMenuOverlay.classList.remove("chat-menu-open");
+}
+
+function setVisibility() {
+  // Function to call when a visibility entry of the menu is clicked
+  const selectedElem = visibilitySection.querySelector(".menu-entry.selected");
+  if (selectedElem === this) {
+    return;
+  }
+
+  selectedElem.classList.remove("selected");
+  this.classList.add("selected");
+  chat.visibility = visibility[this.dataset.visibility];
+}
+
 window.onload = () => {
   allContactsEntry.addEventListener("click", selectContact);
+  visibilitySection.querySelectorAll(".menu-entry").forEach((elem) => {
+    elem.addEventListener("click", setVisibility);
+  });
 
   usernameInput.focus();
   usernameInput.addEventListener("keyup", (event) => {
