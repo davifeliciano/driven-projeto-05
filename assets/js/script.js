@@ -11,6 +11,8 @@ const messageSection = document.querySelector(".message-section");
 const messageInput = document.querySelector("#message");
 const chatMenuBtn = document.querySelector(".chat-config-btn");
 const chatMenuOverlay = document.querySelector(".chat-menu-overlay");
+const contactSection = document.querySelector("#contacts");
+const allContactsEntry = contactSection.querySelector("#all-contacts");
 
 // Enum with visibility options
 const visibility = Object.freeze({
@@ -26,6 +28,7 @@ const chat = {
   sendTo: "Todos",
   visibility: visibility.public,
   messages: [],
+  onlineContacts: [],
 };
 
 function logError(error) {
@@ -103,6 +106,66 @@ function updateMessages() {
     .catch(logError);
 }
 
+function selectContact() {
+  // Function called when a contact of the mmenu is clicked
+  const selectedContacts = contactSection.querySelectorAll(
+    ".menu-entry.selected"
+  );
+  selectedContacts.forEach((elem) => elem.classList.remove("selected"));
+  this.classList.add("selected");
+  chat.sendTo = this.innerText;
+}
+
+function addContactOnMenu(contact, select = false) {
+  /* Add a queried contact on the contacts section of the menu
+     If selected === true, add it with selected class and update chat.sendTo */
+  const contactDiv = document.createElement("div");
+  contactDiv.classList.add("menu-entry");
+
+  if (select === true) {
+    contactDiv.classList.add("selected");
+    chat.sendTo = contact.name;
+  }
+
+  contactDiv.innerHTML = `<ion-icon name="person"></ion-icon>
+                              <span>${contact.name}</span>
+                              <ion-icon name="checkmark"></ion-icon>`;
+  contactDiv.addEventListener("click", selectContact);
+  contactSection.appendChild(contactDiv);
+}
+
+function updateContacts() {
+  // Query the online contacts and add them on the chat menu
+  return axios
+    .get("participants")
+    .then((response) => {
+      // Remove the old contacts from the menu
+      const oldContacts = contactSection.querySelectorAll(
+        ".menu-entry:not(#all-contacts)"
+      );
+      oldContacts.forEach((elem) => elem.remove());
+
+      // Add the new
+      const newContacts = response.data;
+      newContacts
+        .filter((contact) => contact.name !== chat.username)
+        .forEach((contact) =>
+          addContactOnMenu(
+            contact,
+            // Avoid the selection of a contact named "Todos"
+            contact.name === chat.sendTo && contact.name !== "Todos"
+          )
+        );
+
+      // If none of the contacts is selected, select #all-contacts
+      if (contactSection.querySelector(".menu-entry.selected") === null) {
+        allContactsEntry.classList.add("selected");
+        chat.sendTo = allContactsEntry.innerText;
+      }
+    })
+    .catch(window.location.reload);
+}
+
 function sendMessage() {
   // Send the message in messageInput to the API
   const msg = messageInput.value.trim();
@@ -157,7 +220,9 @@ function login() {
       loginScreen.classList.add("hidden");
       chat.username = name;
       updateMessages();
+      updateContacts();
       setInterval(updateMessages, 3000);
+      setInterval(updateContacts, 3000);
       setInterval(sendStatus, 5000);
     })
     .catch((error) => {
@@ -168,6 +233,8 @@ function login() {
 }
 
 window.onload = () => {
+  allContactsEntry.addEventListener("click", selectContact);
+
   usernameInput.focus();
   usernameInput.addEventListener("keyup", (event) => {
     if (event.key === "Enter") {
