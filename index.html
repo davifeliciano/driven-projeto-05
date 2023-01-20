@@ -40,40 +40,51 @@
                width="450"
                height="324">
         </div>
-        <button class="chat-config-btn" onclick="showChatMenu();">
+        <button class="chat-config-btn"
+                onclick="showChatMenu();"
+                data-test="open-participants">
           <ion-icon name="people"></ion-icon>
         </button>
       </header>
       <main class="message-section">
       </main>
       <footer>
-        <input type="text" name="message" id="message" placeholder="Escreva aqui...">
-        <button class="send-btn" onclick="sendMessage();">
+        <input type="text"
+               name="message"
+               id="message"
+               placeholder="Escreva aqui..."
+               data-test="input-message">
+        <button class="send-btn" onclick="sendMessage();" data-test="send-message">
           <ion-icon name="paper-plane"></ion-icon>
         </button>
+        <span class="recipient-hint" data-test="recipient">Enviando para Todos</span>
       </footer>
     </div>
-    <div class="screen chat-menu-overlay" onclick="hideChatMenu();"></div>
+    <div class="screen chat-menu-overlay"
+         onclick="hideChatMenu();"
+         data-test="overlay"></div>
     <div class="chat-menu">
       <div id="contacts" class="menu-section">
         <span class="section-title">Escolha um contato para enviar mensagem:</span>
-        <div id="all-contacts" class="menu-entry selected">
+        <div id="all-contacts" class="menu-entry selected" data-test="all">
           <ion-icon name="people"></ion-icon>
           <span>Todos</span>
-          <ion-icon name="checkmark"></ion-icon>
+          <ion-icon name="checkmark" data-test="check"></ion-icon>
         </div>
       </div>
       <div id="visibility" class="menu-section">
         <span class="section-title">Escolha a visibilidade:</span>
-        <div class="menu-entry selected" data-visibility="public">
+        <div class="menu-entry selected"
+             data-visibility="public"
+             data-test="public">
           <ion-icon name="lock-open"></ion-icon>
           <span>Público</span>
-          <ion-icon name="checkmark"></ion-icon>
+          <ion-icon name="checkmark" data-test="check"></ion-icon>
         </div>
-        <div class="menu-entry" data-visibility="private">
+        <div class="menu-entry" data-visibility="private" data-test="private">
           <ion-icon name="lock-closed"></ion-icon>
           <span>Reservadamente</span>
-          <ion-icon name="checkmark"></ion-icon>
+          <ion-icon name="checkmark" data-test="check"></ion-icon>
         </div>
       </div>
     </div>
@@ -91,8 +102,9 @@
         <input type="text"
                name="username"
                id="username"
-               placeholder="Digite seu nome">
-        <button class="login-btn" onclick="login();">Entrar</button>
+               placeholder="Digite seu nome"
+               data-test="input-name">
+        <button class="login-btn" onclick="login();" data-test="send-name">Entrar</button>
       </div>
     </div>
   </body>

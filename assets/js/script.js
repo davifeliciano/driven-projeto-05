@@ -9,6 +9,7 @@ const usernameInput = document.querySelector("#username");
 const loginMessage = document.querySelector("#login-msg");
 const messageSection = document.querySelector(".message-section");
 const messageInput = document.querySelector("#message");
+const messageInputHint = document.querySelector("footer .recipient-hint");
 const chatMenuBtn = document.querySelector(".chat-config-btn");
 const chatMenuOverlay = document.querySelector(".chat-menu-overlay");
 const contactSection = document.querySelector("#contacts");
@@ -49,6 +50,7 @@ function addMessageOnScreen(msg) {
   // Add a given message on the message section
   const messageContainer = document.createElement("div");
   messageContainer.classList.add("message");
+  messageContainer.dataset.test = "message";
   let senderRecipientSpan;
 
   switch (msg.type) {
@@ -105,6 +107,15 @@ function updateMessages() {
     .catch(logError);
 }
 
+function updateMessageInputHint() {
+  /* Updates the text below the message input with the selected
+     contact and the selecter visibility config */
+  messageInputHint.innerText = `Enviando para ${chat.sendTo}`;
+  if (chat.visibility === visibility.private) {
+    messageInputHint.innerText += " (reservadamente)";
+  }
+}
+
 function selectContact() {
   // Function called when a contact of the mmenu is clicked
   const selectedContacts = contactSection.querySelectorAll(
@@ -113,6 +124,7 @@ function selectContact() {
   selectedContacts.forEach((elem) => elem.classList.remove("selected"));
   this.classList.add("selected");
   chat.sendTo = this.innerText;
+  updateMessageInputHint();
 }
 
 function addContactOnMenu(contact, select = false) {
@@ -120,6 +132,7 @@ function addContactOnMenu(contact, select = false) {
      If selected === true, add it with selected class and update chat.sendTo */
   const contactDiv = document.createElement("div");
   contactDiv.classList.add("menu-entry");
+  contactDiv.dataset.test = "participant";
 
   if (select === true) {
     contactDiv.classList.add("selected");
@@ -128,7 +141,8 @@ function addContactOnMenu(contact, select = false) {
 
   contactDiv.innerHTML = `<ion-icon name="person"></ion-icon>
                               <span>${contact.name}</span>
-                              <ion-icon name="checkmark"></ion-icon>`;
+                              <ion-icon name="checkmark" data-test="check"></ion-icon>`;
+
   contactDiv.addEventListener("click", selectContact);
   contactSection.appendChild(contactDiv);
 }
@@ -205,7 +219,7 @@ function login() {
   messageInput.focus();
   return axios
     .post("participants", { name })
-    .then((reponse) => {
+    .then(() => {
       loginScreen.classList.add("hidden");
       chat.username = name;
       updateMessages();
@@ -240,6 +254,7 @@ function setVisibility() {
   selectedElem.classList.remove("selected");
   this.classList.add("selected");
   chat.visibility = visibility[this.dataset.visibility];
+  updateMessageInputHint();
 }
 
 window.onload = () => {
