@@ -29,11 +29,11 @@ const chat = {
   sendTo: "Todos",
   visibility: visibility.public,
   messages: [],
-  onlineContacts: [],
 };
 
 function logError(error) {
   console.error(error);
+  window.location.reload();
 }
 
 function messageFilter(msg) {
@@ -162,7 +162,7 @@ function updateContacts() {
         chat.sendTo = allContactsEntry.innerText;
       }
     })
-    .catch(window.location.reload);
+    .catch(logError);
 }
 
 function sendMessage() {
@@ -180,15 +180,13 @@ function sendMessage() {
       type: chat.visibility,
     })
     .then(updateMessages)
-    .catch(window.location.reload);
+    .catch(logError);
 }
 
 function sendStatus() {
   /* Send the status to the API. If an error is thrown,
      refresh the page so that the user can login again */
-  return axios
-    .post("status", { name: chat.username })
-    .catch(window.location.reload);
+  return axios.post("status", { name: chat.username }).catch(logError);
 }
 
 function showLoginMessage(msg) {
