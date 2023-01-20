@@ -39,12 +39,10 @@ function logError(error) {
 function messageFilter(msg) {
   /* Function to filter out all the private messages not addressed
      to the current user */
-  if (msg.type === "private-message") {
-    if (msg.to !== chat.username || msg.from !== chat.username) {
-      return false;
-    }
+  if (msg.type !== visibility.private) return true;
+  if (msg.to === chat.username || msg.from === chat.username) {
+    return true;
   }
-  return true;
 }
 
 function addMessageOnScreen(msg) {
@@ -59,13 +57,13 @@ function addMessageOnScreen(msg) {
       senderRecipientSpan = `<span class="username">${msg.from}</span>:`;
       break;
 
-    case "message":
+    case visibility.public:
       messageContainer.classList.add("public");
       senderRecipientSpan = `<span class="username">${msg.from}</span>
                              para <span class="username">${msg.to}</span>:`;
       break;
 
-    case "private_message":
+    case visibility.private:
       messageContainer.classList.add("private");
       senderRecipientSpan = `<span class="username">${msg.from}</span> em privado
                              para <span class="username">${msg.to}</span>:`;
