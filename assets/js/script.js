@@ -5,6 +5,7 @@ axios.defaults.baseURL = "https://mock-api.driven.com.br/api/v6/uol";
 
 // Main elements
 const loginScreen = document.querySelector("#login-screen");
+const loadingScreen = document.querySelector("#loading-screen");
 const usernameInput = document.querySelector("#username");
 const loginMessage = document.querySelector("#login-msg");
 const messageSection = document.querySelector(".message-section");
@@ -96,13 +97,16 @@ function updateMessages() {
 
       /* If the last message of messages differs from
          the one of chat.messages, scroll last message into view */
-      if (
-        JSON.stringify(chat.messages.at(-1)) !== JSON.stringify(messages.at(-1))
-      ) {
+      const lastOldMessage = JSON.stringify(chat.messages.at(-1));
+      const lastNewMessage = JSON.stringify(messages.at(-1));
+      if (lastOldMessage !== lastNewMessage) {
         document.querySelector(".message:last-child").scrollIntoView();
       }
 
       chat.messages = messages;
+
+      // Hide the loading screen when messages arrive
+      hideLoadingScreen();
     })
     .catch(logError);
 }
@@ -209,20 +213,32 @@ function showLoginMessage(msg) {
   loginMessage.innerText = msg;
 }
 
+function showLoadingScreen() {
+  loadingScreen.classList.remove("hidden");
+}
+
+function hideLoadingScreen() {
+  loadingScreen.classList.add("hidden");
+}
+
 function login() {
   const name = usernameInput.value.trim();
 
   if (name === "") {
     showLoginMessage("Insira um nome de usuário");
+    messageInput.focus();
     return null;
   }
 
+  showLoadingScreen();
   messageInput.focus();
   return axios
     .post("participants", { name })
     .then(() => {
       loginScreen.classList.add("hidden");
       chat.username = name;
+
+      // The call to updateMessages will hide the loading screen
       updateMessages();
       updateContacts();
       setInterval(updateMessages, 3000);
@@ -233,6 +249,7 @@ function login() {
       if (error.response.status === 400) {
         showLoginMessage("Já existe um usuário com esse nome");
         usernameInput.focus();
+        hideLoadingScreen();
       }
     });
 }

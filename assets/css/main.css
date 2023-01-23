@@ -269,6 +269,23 @@ footer .recipient-hint {
     color: var(--user-btn-color);
 }
 
+#loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading-screen .logo-container {
+    height: 10rem;
+    animation: loading-anim 500ms ease-in-out infinite alternate;
+}
+
+@keyframes loading-anim {
+    50% {
+        transform: scale(125%);
+    }
+}
+
 :is(#message, #username)::selection {
     color: white;
     background-color: var(--theme-color);
@@ -278,6 +295,6 @@ button:hover {
     cursor: pointer;
 }
 
-:is(#login-screen, #login-msg).hidden {
+:is(#login-screen, #login-msg, #loading-screen).hidden {
     display: none;
 }
