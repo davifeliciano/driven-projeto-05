@@ -174,6 +174,7 @@ function updateContacts() {
       if (contactSection.querySelector(".menu-entry.selected") === null) {
         allContactsEntry.classList.add("selected");
         chat.sendTo = allContactsEntry.innerText;
+        updateMessageInputHint();
       }
     })
     .catch(logError);
